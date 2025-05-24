@@ -1,36 +1,23 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>محاسبه عمق نفوذ امواج اولتراسونیک</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="ultrasonic.js"></script>
-</head>
-<body>
-  <header>
-    <img src="https://sonocs.com/wp-content/uploads/2024/08/SONOCS-LOGO.png" alt="لوگو" class="logo">
-    <h1>ماشین‌حساب عمق نفوذ اولتراسونیک</h1>
-  </header>
-
-  <main>
-    <label for="frequency">فرکانس (کیلوهرتز):</label>
-    <input type="number" id="frequency" min="1" required>
-
-    <label for="material">جنس متریال:</label>
-    <select id="material">
-      <option value="steel">استیل</option>
-      <option value="aluminum">آلومینیوم</option>
-      <option value="plastic">پلاستیک</option>
-      <option value="glass">شیشه</option>
-    </select>
-
-    <button onclick="calculatePenetration()">محاسبه عمق نفوذ</button>
-    <div id="result"></div>
-
-    <a href="index.html" style="display: block; margin-top: 2rem; text-align: center;">
-      <button>بازگشت به صفحه اول</button>
-    </a>
-  </main>
-</body>
-</html>
+body {
+  font-family: "Vazirmatn", sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: center;
+  padding: 2rem;
+}
+input, select, button {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+button {
+  background-color: #A8CF45;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+header img.logo {
+  width: 140px;
+  margin-bottom: 1rem;
+}
