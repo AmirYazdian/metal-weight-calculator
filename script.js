@@ -1,102 +1,100 @@
-
+// script.js
 const materials = {
-    fa: {
-        "فولاد کربنی": 7.85,
-        "استیل ضد زنگ": 8.0,
-        "آلومینیوم": 2.7,
-        "مس": 8.96,
-        "برنج": 8.5,
-        "پلی‌اتیلن (PE)": 0.95,
-        "پلی‌پروپیلن (PP)": 0.91,
-        "PVC": 1.38,
-        "پلی‌کربنات": 1.2,
-        "تفلون": 2.2
-    },
-    en: {
-        "Carbon Steel": 7.85,
-        "Stainless Steel": 8.0,
-        "Aluminum": 2.7,
-        "Copper": 8.96,
-        "Brass": 8.5,
-        "Polyethylene (PE)": 0.95,
-        "Polypropylene (PP)": 0.91,
-        "PVC": 1.38,
-        "Polycarbonate": 1.2,
-        "Teflon": 2.2
-    }
+  "استیل": 7.85,
+  "آلومینیوم": 2.7,
+  "مس": 8.96,
+  "برنج": 8.5,
+  "پلاستیک (ABS)": 1.05,
+  "پلاستیک (پلی‌اتیلن)": 0.95,
+  "پلاستیک (پلی‌پروپیلن)": 0.91,
+  "پلاستیک (PVC)": 1.4
 };
 
-let currentLang = 'fa';
+const materialSelect = document.getElementById("material");
+Object.keys(materials).forEach(mat => {
+  const option = document.createElement("option");
+  option.value = mat;
+  option.textContent = mat;
+  materialSelect.appendChild(option);
+});
 
-const shapeFields = {
-    cube: {fa: "ابعاد (طول × عرض × ارتفاع) به سانتی‌متر", fields: ['length', 'width', 'height']},
-    cylinder: {fa: "ابعاد (قطر × ارتفاع) به سانتی‌متر", fields: ['diameter', 'height']},
-    pipe: {fa: "ابعاد (قطر بیرونی × قطر داخلی × ارتفاع) به سانتی‌متر", fields: ['outer_diameter', 'inner_diameter', 'height']},
-    sheet: {fa: "ابعاد (طول × عرض × ضخامت) به سانتی‌متر", fields: ['length', 'width', 'thickness']}
-};
+function updateDimensions() {
+  const shape = document.getElementById("shape").value;
+  const container = document.getElementById("dimensions");
+  container.innerHTML = "";
 
-function renderDimensions() {
-    const shape = document.getElementById('shape').value;
-    const container = document.getElementById('dimensions');
-    container.innerHTML = `<label>${shapeFields[shape][currentLang === 'fa' ? 'fa' : 'en']}</label>`;
-    shapeFields[shape].fields.forEach(field => {
-        container.innerHTML += `<input type="number" id="${field}" placeholder="${field}">`;
-    });
-}
+  const fields = {
+    cube: ["طول (میلی‌متر)", "عرض (میلی‌متر)", "ارتفاع (میلی‌متر)"],
+    cylinder: ["قطر (میلی‌متر)", "ارتفاع (میلی‌متر)"],
+    pipe: ["قطر بیرونی (میلی‌متر)", "قطر داخلی (میلی‌متر)", "طول (میلی‌متر)"],
+    sheet: ["طول (میلی‌متر)", "عرض (میلی‌متر)", "ضخامت (میلی‌متر)"]
+  }[shape];
 
-function populateMaterials() {
-    const materialSelect = document.getElementById('material');
-    materialSelect.innerHTML = '';
-    for (const [name, density] of Object.entries(materials[currentLang])) {
-        const option = document.createElement('option');
-        option.value = density;
-        option.textContent = name;
-        materialSelect.appendChild(option);
-    }
+  fields.forEach((label, i) => {
+    const lbl = document.createElement("label");
+    lbl.textContent = label;
+    const input = document.createElement("input");
+    input.type = "number";
+    input.id = `dim${i}`;
+    input.min = 0;
+    container.appendChild(lbl);
+    container.appendChild(input);
+  });
+
+  // به‌روزرسانی آیکون
+  const iconContainer = document.getElementById('shape-icon');
+  const shapeIcons = {
+    cube: 'https://cdn-icons-png.flaticon.com/512/4145/4145670.png',
+    cylinder: 'https://cdn-icons-png.flaticon.com/512/4222/4222633.png',
+    pipe: 'https://cdn-icons-png.flaticon.com/512/4819/4819864.png',
+    sheet: 'https://cdn-icons-png.flaticon.com/512/6711/6711234.png'
+  };
+  if (shapeIcons[shape]) {
+    iconContainer.innerHTML = `<img src="${shapeIcons[shape]}" alt="${shape}">`;
+  } else {
+    iconContainer.innerHTML = '';
+  }
 }
 
 function calculate() {
-    const shape = document.getElementById('shape').value;
-    let volume = 0;
-    if (shape === 'cube') {
-        const l = getVal('length'), w = getVal('width'), h = getVal('height');
-        volume = l * w * h;
-    } else if (shape === 'cylinder') {
-        const d = getVal('diameter'), h = getVal('height');
-        volume = Math.PI * Math.pow(d / 2, 2) * h;
-    } else if (shape === 'pipe') {
-        const d1 = getVal('outer_diameter'), d2 = getVal('inner_diameter'), h = getVal('height');
-        volume = Math.PI * h * (Math.pow(d1 / 2, 2) - Math.pow(d2 / 2, 2));
-    } else if (shape === 'sheet') {
-        const l = getVal('length'), w = getVal('width'), t = getVal('thickness');
-        volume = l * w * t;
-    }
-    const density = parseFloat(document.getElementById('material').value);
-    const weight = volume * density / 1000; // cm³ to kg
-    document.getElementById('result').textContent = currentLang === 'fa' ? `وزن: ${weight.toFixed(2)} کیلوگرم` : `Weight: ${weight.toFixed(2)} kg`;
-}
+  const shape = document.getElementById("shape").value;
+  const mat = document.getElementById("material").value;
+  const rho = materials[mat];
 
-function getVal(id) {
-    return parseFloat(document.getElementById(id).value || '0');
+  let volume_mm3 = 0;
+  const dim = i => parseFloat(document.getElementById(`dim${i}`).value || 0);
+
+  if (shape === "cube") {
+    volume_mm3 = dim(0) * dim(1) * dim(2);
+  } else if (shape === "cylinder") {
+    const radius = dim(0) / 2;
+    volume_mm3 = Math.PI * Math.pow(radius, 2) * dim(1);
+  } else if (shape === "pipe") {
+    const outerRadius = dim(0) / 2;
+    const innerRadius = dim(1) / 2;
+    volume_mm3 = Math.PI * (Math.pow(outerRadius, 2) - Math.pow(innerRadius, 2)) * dim(2);
+  } else if (shape === "sheet") {
+    volume_mm3 = dim(0) * dim(1) * dim(2);
+  }
+
+  // میلی‌متر مکعب به سانتی‌متر مکعب
+  const volume_cm3 = volume_mm3 / 1000;
+  const weight = (volume_cm3 * rho).toFixed(2);
+  document.getElementById("result").textContent = `وزن: ${weight} گرم`;
 }
 
 function switchLang() {
-    currentLang = currentLang === 'fa' ? 'en' : 'fa';
-    document.documentElement.lang = currentLang;
-    document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
-    document.getElementById('title').textContent = currentLang === 'fa' ? 'ماشین حساب وزن متریال' : 'Material Weight Calculator';
-    document.querySelector("label[for='shape']").textContent = currentLang === 'fa' ? 'شکل هندسی:' : 'Shape:';
-    document.querySelector("label[for='material']").textContent = currentLang === 'fa' ? 'متریال:' : 'Material:';
-    document.querySelector("button").textContent = currentLang === 'fa' ? 'محاسبه وزن' : 'Calculate Weight';
-    document.querySelector(".lang-switch").textContent = currentLang === 'fa' ? 'Switch to English' : 'تغییر به فارسی';
-    renderDimensions();
-    populateMaterials();
-}
+  const lang = document.documentElement.lang;
+  const isFa = lang === "fa";
 
-document.getElementById('shape').addEventListener('change', () => {
-    renderDimensions();
-});
-window.onload = () => {
-    renderDimensions();
-    populateMaterials();
-};
+  document.documentElement.lang = isFa ? "en" : "fa";
+  document.documentElement.dir = isFa ? "ltr" : "rtl";
+
+  document.getElementById("title").textContent = isFa ? "Material Weight Calculator" : "ماشین حساب وزن متریال";
+  document.querySelector("label[for='shape']").textContent = isFa ? "Shape:" : "شکل هندسی:";
+  document.querySelector("label[for='material']").textContent = isFa ? "Material:" : "متریال:";
+  document.querySelector("button").textContent = isFa ? "Calculate Weight" : "محاسبه وزن";
+  document.querySelector(".lang-switch").textContent = isFa ? "تغییر به فارسی" : "Switch to English";
+
+  updateDimensions();
+}
