@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محاسبه وزن متریال</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <img src="https://sonocs.com/wp-content/uploads/2024/08/SONOCS-LOGO.png" alt="لوگو" class="logo">
+    <h1 id="title">ماشین حساب وزن متریال</h1>
+    <button class="lang-switch" onclick="switchLang()">Switch to English</button>
+  </header>
+
+  <main>
+    <label for="shape">شکل هندسی:</label>
+    <select id="shape" onchange="updateDimensions()">
+      <option value="cube">مکعب مستطیل</option>
+      <option value="cylinder">استوانه</option>
+      <option value="pipe">لوله</option>
+      <option value="sheet">ورق</option>
+    </select>
+    <div id="shape-icon" style="margin: 1rem 0;"></div>
+
+    <div id="dimensions"></div>
+
+    <label for="material">متریال:</label>
+    <select id="material"></select>
+
+    <button onclick="calculate()">محاسبه وزن</button>
+    <div id="result"></div>
+  </main>
+</body>
+</html>
