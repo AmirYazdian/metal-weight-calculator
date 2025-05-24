@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ماشین حساب وزن متریال</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; direction: rtl; }
+        label, select, input { display: block; margin-top: 10px; width: 100%; }
+        button { margin-top: 20px; padding: 10px; width: 100%; }
+        .hidden { display: none; }
+        .lang-switch { margin-top: 20px; text-align: center; cursor: pointer; color: blue; }
+    </style>
+</head>
+<body>
+    <h1 id="title">ماشین حساب وزن متریال</h1>
+
+    <label for="shape">شکل هندسی:</label>
+    <select id="shape">
+        <option value="cube">مکعب مستطیل</option>
+        <option value="cylinder">استوانه</option>
+        <option value="pipe">لوله توخالی</option>
+        <option value="sheet">صفحه</option>
+    </select>
+
+    <div id="dimensions"></div>
+
+    <label for="material">متریال:</label>
+    <select id="material"></select>
+
+    <button onclick="calculate()">محاسبه وزن</button>
+    <h2 id="result"></h2>
+
+    <div class="lang-switch" onclick="switchLang()">Switch to English</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
