@@ -1,59 +1,74 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ماشین‌حساب وزن متریال و اولتراسونیک</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ماشین‌حساب‌های سوناکس</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .logo {
+      height: 60px;
+    }
+    h1 {
+      color: #606062;
+    }
+    .options {
+      display: flex;
+      gap: 2rem;
+    }
+    .option {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .option:hover {
+      transform: scale(1.05);
+    }
+    .option img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+    .option-title {
+      font-size: 1.2rem;
+      color: #A8CF45;
+    }
+  </style>
 </head>
 <body>
   <header>
     <img src="https://sonocs.com/wp-content/uploads/2024/08/SONOCS-LOGO.png" alt="لوگو سوناکس" class="logo">
-    <h1 id="title">ماشین‌حساب وزن متریال</h1>
-    <button class="lang-switch" onclick="switchLang()">Switch to English</button>
+    <h1>ماشین‌حساب‌های سوناکس</h1>
   </header>
-
-  <main>
-    <section class="calculator">
-      <label for="shape">شکل هندسی:</label>
-      <select id="shape" onchange="updateDimensions()">
-        <option value="cube">مکعب مستطیل</option>
-        <option value="cylinder">استوانه</option>
-        <option value="pipe">لوله</option>
-        <option value="sheet">ورق</option>
-      </select>
-
-      <div id="shape-icon" class="icon"></div>
-
-      <div id="dimensions"></div>
-
-      <label for="material">متریال:</label>
-      <select id="material"></select>
-
-      <button onclick="calculate()">محاسبه وزن</button>
-      <p id="result"></p>
-    </section>
-
-    <hr />
-
-    <section class="calculator">
-      <h2>ماشین‌حساب عمق نفوذ امواج اولتراسونیک</h2>
-      <label for="ultra-frequency">فرکانس (کیلوهرتز):</label>
-      <input type="number" id="ultra-frequency" min="1" />
-
-      <label for="ultra-material">متریال:</label>
-      <select id="ultra-material">
-        <option value="steel">فولاد</option>
-        <option value="aluminum">آلومینیوم</option>
-        <option value="water">آب</option>
-        <option value="plastic">پلاستیک</option>
-      </select>
-
-      <button onclick="calculateUltrasonic()">محاسبه عمق نفوذ</button>
-      <p id="ultra-result"></p>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+  <div class="options">
+    <div class="option" onclick="location.href='weight.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/4145/4145670.png" alt="محاسبه وزن">
+      <div class="option-title">محاسبه وزن متریال</div>
+    </div>
+    <div class="option" onclick="location.href='ultrasonic.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/4222/4222633.png" alt="محاسبه عمق نفوذ">
+      <div class="option-title">محاسبه عمق نفوذ اولتراسونیک</div>
+    </div>
+  </div>
 </body>
 </html>
