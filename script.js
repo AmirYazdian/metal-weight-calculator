@@ -41,7 +41,6 @@ function updateDimensions() {
     container.appendChild(input);
   });
 
-  // به‌روزرسانی آیکون
   const iconContainer = document.getElementById('shape-icon');
   const shapeIcons = {
     cube: 'https://cdn-icons-png.flaticon.com/512/4145/4145670.png',
@@ -77,10 +76,31 @@ function calculate() {
     volume_mm3 = dim(0) * dim(1) * dim(2);
   }
 
-  // میلی‌متر مکعب به سانتی‌متر مکعب -> سپس به لیتر -> سپس به کیلوگرم
   const volume_cm3 = volume_mm3 / 1000;
   const weight_kg = (volume_cm3 * rho / 1000).toFixed(3);
   document.getElementById("result").textContent = `وزن: ${weight_kg} کیلوگرم`;
+}
+
+function calculateUltrasonic() {
+  const freqKHz = parseFloat(document.getElementById("ultra-frequency").value || 0);
+  const material = document.getElementById("ultra-material").value;
+
+  const props = {
+    steel: { c: 5900, alpha: 0.12 },
+    aluminum: { c: 6320, alpha: 0.01 },
+    water: { c: 1500, alpha: 0.002 },
+    plastic: { c: 2400, alpha: 0.02 }
+  }[material];
+
+  if (!freqKHz || !props) {
+    document.getElementById("ultra-result").textContent = "ورودی معتبر نیست";
+    return;
+  }
+
+  const freqHz = freqKHz * 1000;
+  const depth_mm = props.c / (2 * Math.PI * freqHz * props.alpha);
+  const rounded = depth_mm.toFixed(2);
+  document.getElementById("ultra-result").textContent = `عمق نفوذ تقریبی: ${rounded} میلی‌متر`;
 }
 
 function switchLang() {
