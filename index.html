@@ -12,11 +12,10 @@
             margin: auto;
             padding: 20px;
             direction: rtl;
-            background: linear-gradient(to top left, #f0f4f8, #e0ecf4);
-            border-radius: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
             background-color: #A8CF45;
             color: #606062;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
         }
         h1 {
             text-align: center;
@@ -78,6 +77,7 @@
         }
         #shape-icon img {
             max-width: 100px;
+            height: auto;
         }
     </style>
 </head>
@@ -105,24 +105,26 @@
 
     <div class="lang-switch" onclick="switchLang()">Switch to English</div>
 
-    <script src="script.js"></script>
     <script>
         const shapeIcons = {
-          cube: 'https://static.thenounproject.com/png/3377424-200.png',
-          cylinder: 'https://cdn-icons-png.flaticon.com/512/7398/7398454.png',
-          pipe: 'https://cdn-icons-png.flaticon.com/512/4819/4819864.png',
-          sheet: 'https://cdn-icons-png.flaticon.com/512/10265/10265568.png'
+            cube: 'https://cdn-icons-png.flaticon.com/512/4145/4145670.png',
+            cylinder: 'https://cdn-icons-png.flaticon.com/512/4222/4222633.png',
+            pipe: 'https://cdn-icons-png.flaticon.com/512/4819/4819864.png',
+            sheet: 'https://cdn-icons-png.flaticon.com/512/6711/6711234.png'
         };
-
 
         function updateDimensions() {
             const shape = document.getElementById('shape').value;
             const iconContainer = document.getElementById('shape-icon');
-            iconContainer.innerHTML = `<img src="${shapeIcons[shape]}" alt="${shape}">`;
+            if (shapeIcons[shape]) {
+                iconContainer.innerHTML = `<img src="${shapeIcons[shape]}" alt="${shape}">`;
+            } else {
+                iconContainer.innerHTML = '';
+            }
         }
 
-        // اجرای اولیه برای بارگذاری آیکون اولیه
         window.onload = updateDimensions;
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
