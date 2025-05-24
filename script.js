@@ -77,10 +77,10 @@ function calculate() {
     volume_mm3 = dim(0) * dim(1) * dim(2);
   }
 
-  // میلی‌متر مکعب به سانتی‌متر مکعب
+  // میلی‌متر مکعب به سانتی‌متر مکعب -> سپس به لیتر -> سپس به کیلوگرم
   const volume_cm3 = volume_mm3 / 1000;
-  const weight = (volume_cm3 * rho).toFixed(2);
-  document.getElementById("result").textContent = `وزن: ${weight} گرم`;
+  const weight_kg = (volume_cm3 * rho / 1000).toFixed(3);
+  document.getElementById("result").textContent = `وزن: ${weight_kg} کیلوگرم`;
 }
 
 function switchLang() {
