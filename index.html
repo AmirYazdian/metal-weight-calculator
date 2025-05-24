@@ -1,130 +1,59 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>ماشین حساب وزن متریال</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            direction: rtl;
-            background-color: #c6d1ab;
-            color: #606062;
-            border-radius: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            font-weight: 700;
-            color: #606062;
-        }
-        label, select, input {
-            display: block;
-            margin-top: 12px;
-            width: 100%;
-            font-size: 1.1em;
-        }
-        input, select {
-            padding: 8px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-        }
-        button {
-            margin-top: 20px;
-            padding: 12px;
-            width: 100%;
-            background: #606062;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        button:hover {
-            background: #404043;
-        }
-        h2#result {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 1.4em;
-            color: #222;
-            background: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        }
-        .lang-switch {
-            margin-top: 30px;
-            text-align: center;
-            cursor: pointer;
-            color: #007BFF;
-            font-weight: bold;
-        }
-        #logo {
-            display: block;
-            margin: 0 auto 20px;
-            max-width: 180px;
-        }
-        #shape-icon {
-            text-align: center;
-            margin-top: 10px;
-        }
-        #shape-icon img {
-            max-width: 100px;
-            height: auto;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ماشین‌حساب وزن متریال و اولتراسونیک</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <img id="logo" src="https://sonocs.com/wp-content/uploads/2024/08/SONOCS-LOGO.png" alt="SONOCS Logo">
+  <header>
+    <img src="https://sonocs.com/wp-content/uploads/2024/08/SONOCS-LOGO.png" alt="لوگو سوناکس" class="logo">
+    <h1 id="title">ماشین‌حساب وزن متریال</h1>
+    <button class="lang-switch" onclick="switchLang()">Switch to English</button>
+  </header>
 
-    <h1 id="title">ماشین حساب وزن متریال</h1>
-
-    <label for="shape">شکل هندسی:</label>
-    <select id="shape" onchange="updateDimensions()">
+  <main>
+    <section class="calculator">
+      <label for="shape">شکل هندسی:</label>
+      <select id="shape" onchange="updateDimensions()">
         <option value="cube">مکعب مستطیل</option>
         <option value="cylinder">استوانه</option>
-        <option value="pipe">لوله توخالی</option>
-        <option value="sheet">صفحه</option>
-    </select>
+        <option value="pipe">لوله</option>
+        <option value="sheet">ورق</option>
+      </select>
 
-    <div id="shape-icon"></div>
-    <div id="dimensions"></div>
+      <div id="shape-icon" class="icon"></div>
 
-    <label for="material">متریال:</label>
-    <select id="material"></select>
+      <div id="dimensions"></div>
 
-    <button onclick="calculate()">محاسبه وزن</button>
-    <h2 id="result"></h2>
+      <label for="material">متریال:</label>
+      <select id="material"></select>
 
-    <div class="lang-switch" onclick="switchLang()">Switch to English</div>
+      <button onclick="calculate()">محاسبه وزن</button>
+      <p id="result"></p>
+    </section>
 
-    <script>
-        const shapeIcons = {
-            cube: 'https://cdn-icons-png.flaticon.com/512/4145/4145670.png',
-            cylinder: 'https://cdn-icons-png.flaticon.com/512/4222/4222633.png',
-            pipe: 'https://cdn-icons-png.flaticon.com/512/4819/4819864.png',
-            sheet: 'https://cdn-icons-png.flaticon.com/512/6711/6711234.png'
-        };
+    <hr />
 
-        function updateDimensions() {
-            const shape = document.getElementById('shape').value;
-            const iconContainer = document.getElementById('shape-icon');
-            if (shapeIcons[shape]) {
-                iconContainer.innerHTML = `<img src="${shapeIcons[shape]}" alt="${shape}">`;
-            } else {
-                iconContainer.innerHTML = '';
-            }
-        }
+    <section class="calculator">
+      <h2>ماشین‌حساب عمق نفوذ امواج اولتراسونیک</h2>
+      <label for="ultra-frequency">فرکانس (کیلوهرتز):</label>
+      <input type="number" id="ultra-frequency" min="1" />
 
-        window.onload = updateDimensions;
-    </script>
-    <script src="script.js"></script>
+      <label for="ultra-material">متریال:</label>
+      <select id="ultra-material">
+        <option value="steel">فولاد</option>
+        <option value="aluminum">آلومینیوم</option>
+        <option value="water">آب</option>
+        <option value="plastic">پلاستیک</option>
+      </select>
+
+      <button onclick="calculateUltrasonic()">محاسبه عمق نفوذ</button>
+      <p id="ultra-result"></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
