@@ -1,80 +1,36 @@
-body {
-  font-family: Tahoma, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 2rem;
-  direction: rtl;
-  text-align: center;
-}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محاسبه عمق نفوذ امواج اولتراسونیک</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="ultrasonic.js"></script>
+</head>
+<body>
+  <header>
+    <img src="https://sonocs.com/wp-content/uploads/2024/08/SONOCS-LOGO.png" alt="لوگو" class="logo">
+    <h1>ماشین‌حساب عمق نفوذ اولتراسونیک</h1>
+  </header>
 
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
+  <main>
+    <label for="frequency">فرکانس (کیلوهرتز):</label>
+    <input type="number" id="frequency" min="1" required>
 
-.logo {
-  height: 60px;
-}
+    <label for="material">جنس متریال:</label>
+    <select id="material">
+      <option value="steel">استیل</option>
+      <option value="aluminum">آلومینیوم</option>
+      <option value="plastic">پلاستیک</option>
+      <option value="glass">شیشه</option>
+    </select>
 
-h1 {
-  color: #606062;
-  font-size: 1.8rem;
-}
+    <button onclick="calculatePenetration()">محاسبه عمق نفوذ</button>
+    <div id="result"></div>
 
-main {
-  background-color: white;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-label {
-  display: block;
-  margin: 1rem 0 0.5rem;
-  font-weight: bold;
-  color: #333;
-  text-align: right;
-}
-
-input,
-select,
-button {
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 1rem;
-}
-
-button {
-  background-color: #A8CF45;
-  border: none;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #8eb93b;
-}
-
-#result {
-  margin-top: 1.5rem;
-  font-size: 1.2rem;
-  color: #333;
-}
-
-.icon {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  margin-top: 1rem;
-}
+    <a href="index.html" style="display: block; margin-top: 2rem; text-align: center;">
+      <button>بازگشت به صفحه اول</button>
+    </a>
+  </main>
+</body>
+</html>
