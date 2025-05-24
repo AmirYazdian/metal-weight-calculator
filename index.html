@@ -15,11 +15,13 @@
             background: linear-gradient(to top left, #f0f4f8, #e0ecf4);
             border-radius: 20px;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            background-color: #A8CF45;
+            color: #606062;
         }
         h1 {
             text-align: center;
             font-weight: 700;
-            color: #333;
+            color: #606062;
         }
         label, select, input {
             display: block;
@@ -37,7 +39,7 @@
             margin-top: 20px;
             padding: 12px;
             width: 100%;
-            background: #007BFF;
+            background: #606062;
             color: white;
             border: none;
             border-radius: 12px;
@@ -46,7 +48,7 @@
             transition: background 0.3s ease;
         }
         button:hover {
-            background: #0056b3;
+            background: #404043;
         }
         h2#result {
             text-align: center;
@@ -65,19 +67,34 @@
             color: #007BFF;
             font-weight: bold;
         }
+        #logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 180px;
+        }
+        #shape-icon {
+            text-align: center;
+            margin-top: 10px;
+        }
+        #shape-icon img {
+            max-width: 100px;
+        }
     </style>
 </head>
 <body>
+    <img id="logo" src="https://sonocs.com/wp-content/uploads/2024/08/SONOCS-LOGO.png" alt="SONOCS Logo">
+
     <h1 id="title">ماشین حساب وزن متریال</h1>
 
     <label for="shape">شکل هندسی:</label>
-    <select id="shape">
+    <select id="shape" onchange="updateDimensions()">
         <option value="cube">مکعب مستطیل</option>
         <option value="cylinder">استوانه</option>
         <option value="pipe">لوله توخالی</option>
         <option value="sheet">صفحه</option>
     </select>
 
+    <div id="shape-icon"></div>
     <div id="dimensions"></div>
 
     <label for="material">متریال:</label>
@@ -89,5 +106,22 @@
     <div class="lang-switch" onclick="switchLang()">Switch to English</div>
 
     <script src="script.js"></script>
+    <script>
+        const shapeIcons = {
+            cube: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Rectangular_cuboid.svg/120px-Rectangular_cuboid.svg.png',
+            cylinder: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cylinder_geometry.svg/120px-Cylinder_geometry.svg.png',
+            pipe: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Pipe_cross_section.svg/120px-Pipe_cross_section.svg.png',
+            sheet: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Flat_sheet.svg/120px-Flat_sheet.svg.png'
+        };
+
+        function updateDimensions() {
+            const shape = document.getElementById('shape').value;
+            const iconContainer = document.getElementById('shape-icon');
+            iconContainer.innerHTML = `<img src="${shapeIcons[shape]}" alt="${shape}">`;
+        }
+
+        // اجرای اولیه برای بارگذاری آیکون اولیه
+        window.onload = updateDimensions;
+    </script>
 </body>
 </html>
